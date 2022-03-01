@@ -503,8 +503,8 @@ func (p *Parser) Parse(args []string) (*Parser, error) {
 		return targetParser, BreakAfterShellScript{}
 	}
 	entries := append(p.entries, p.positionArgs...) // ready for Required checking & Default parsing
-	for _, _p := range p.subParser {
-		entries = append(entries, append(_p.entries, _p.positionArgs...)...)
+	if subParser != nil {
+		entries = append(entries, append(subParser.entries, subParser.positionArgs...)...)
 	}
 	for _, arg := range entries {
 		if !arg.assigned && arg.Default != "" {
